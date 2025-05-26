@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TmdbServiceTsService } from './services/tmdb.service.ts.service';
+import { TmdbServiceTsService } from './core/services/tmdb.service.ts.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,9 @@ export class AppComponent {
 
 
   fuv(){
-    this.tmdbServiceTsService.getUser().subscribe((iye)=> console.log("sss", iye))
+    this.tmdbServiceTsService.getUser().pipe(
+      filter((item:any)=> item.results)
+    ).subscribe((iye)=> console.log("ssss", iye.results))
   }
 
 }

@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+**/.angular
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -87,6 +88,7 @@ web_modules/
 # Next.js build output
 .next
 out
+.angular/
 
 # Nuxt.js build / generate output
 .nuxt
@@ -141,3 +143,5 @@ dist
 .angular/
 .angular/cache/
 /.angular/cache
+.angular/cache/19.2.13/movie_discovery/vite/deps/_metadata.json
+.angular/cache/19.2.13/movie_discovery/vite/deps/_metadata.json
