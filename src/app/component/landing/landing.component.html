@@ -36,8 +36,10 @@
 <div class="container" *ngIf="!loading">
     <div class="d-flex gap-4 flex-wrap" >
         <div class="movie-card" *ngFor="let item of movieList" >
-            <div class="movie-img-section mb-2">
+            <div class="movie-img-section mb-2"  >
+                <a [routerLink]="['/details', item.id]">
                 <img src="https://media.themoviedb.org/t/p/w220_and_h330_face{{item.poster_path}}"alt="movie-img" class="movie-img">
+                </a>
                 <div class="rating-detail p-2 d-flex gap-3">
                     <p class="text-center mb-0 text-white"> {{item.vote_average  | number:'1.2-2'}}/10</p>
                     <p class="text-center mb-0 text-white"> {{item.vote_count}}Votes</p>

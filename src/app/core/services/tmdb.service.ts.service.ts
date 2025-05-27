@@ -28,6 +28,14 @@ export class TmdbServiceTsService {
       );
   }
 
+   getSpecificMovieDetails(_id: number): Observable<Config> {
+    return this.httpClient.get<Config>(`${environment.COMMON_URL}movie/${_id}?language=en-US`)
+      .pipe(
+        tap(data => data.results),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(err: HttpErrorResponse): Observable<never> {
     // just a test ... more could would go here
     return throwError(() => err);
