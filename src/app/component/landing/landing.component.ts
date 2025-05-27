@@ -1,13 +1,14 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TmdbServiceTsService } from '../../core/services/tmdb.service.ts.service';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { ElementRef, Renderer2} from '@angular/core';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { ElementRef, Renderer2 } from '@angular/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
 
 export interface Movie {
   adult: boolean;
@@ -24,38 +25,82 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  isclicked?: boolean; // Optional property to track if the movie is clicked
 }
 
 @Component({
   selector: 'app-landing',
-  imports: [CommonModule, FormsModule, MatProgressSpinnerModule, RouterModule, MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatProgressSpinnerModule,
+    RouterModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatBadgeModule
+  ],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 
 })
 export class LandingComponent {
-  constructor(private tmdbServiceTsService: TmdbServiceTsService,private elRef: ElementRef, private renderer: Renderer2, private router: Router, private route: ActivatedRoute) {
-  }
+
+  dummynumber: number = 0;
   movieList: any = [];
   loading: boolean = false;
   ActorDetails: any = [];
   isSearching: boolean = false;
   heading: string = "";
   inputValue: string | undefined;
+  isInWishlist = [];
+  constructor(private tmdbServiceTsService: TmdbServiceTsService, private elRef: ElementRef, private renderer: Renderer2, private router: Router, private route: ActivatedRoute) {
+    // this.checkWishlist();
+  }
 
+  closeElement(event: MouseEvent) {
+    console.log("closeElement called");
+  }
+  checkWishlist() {
+    console.log("checkWishlist called");
+    const storedData = localStorage.getItem('addedWishlist');
+    let existingArray = storedData ? JSON.parse(storedData) : [];
+    // this.dummynumber =;
+    if( existingArray.length > 0) {
+      this.isInWishlist = existingArray.map((item: Movie) => {
+        console.log("imanjnu", item.poster_path);
+        
+        return {
+          id: item.id,
+          title: item.title,
+          // isclicked: item.isclicked || false // Ensure isclicked is defined
+          poster_path: item.poster_path || '', // Ensure poster_path is defined
+        };
+      })
+      console.log("isInWishlistisInWishlistisInWishlist",  this.isInWishlist);
+    } else{
+      localStorage.setItem('addedWishlist', JSON.stringify([]));
+    }
+    return  existingArray.length;
+  }
 
-   isInWishlist = false;
-    
-      toggleWishlist(i: number) {
-       
-        this.movieList = this.movieList.map((item:any) =>{
-          if (item.id === i) {
-     item.isclicked = !item.isclicked;
-          }
-          return item;
-        })
-console.log("this.movieList", this.movieList);
+  toggleWishlist(id: number, item: Movie) {
+    this.movieList = this.movieList.map((item: any) => {
+      if (item.id === id) {
+        item.isclicked = !item.isclicked;
       }
+      return item;
+    })
+    const storedData = localStorage.getItem('addedWishlist');
+    let existingArray = storedData ? JSON.parse(storedData) : [];
+    if (item.isclicked) {
+      existingArray.push(item);
+    } else {
+      existingArray = existingArray.filter((movie: Movie) => movie.id !== id);
+    }
+    localStorage.setItem('addedWishlist', JSON.stringify(existingArray));
+    // this.dummynumber = existingArray.length;
+  }
 
 
 
@@ -66,12 +111,22 @@ console.log("this.movieList", this.movieList);
     this.tmdbServiceTsService.getMovieDetails(genres_id).subscribe({
       next: (res) => {
         setTimeout(() => {
-       
+
           this.movieList = res.results.map((item: any) => {
             item.isclicked = false
             return item;
           })
-             console.log("this.movieList", this.movieList)
+
+          const storedData = localStorage.getItem('addedWishlist');
+          let existingArraylust = storedData ? JSON.parse(storedData) : [];
+          if (existingArraylust.length > 0) {
+            this.movieList.forEach((item: any) => {
+              item.isclicked = existingArraylust.some((movie: Movie) => movie.id === item.id);
+            });
+          }
+
+          // this.dummynumber = existingArraylust.length;
+          console.log("existingArraylust", existingArraylust);
           this.loading = false;
         }, 1000)
       },
@@ -79,22 +134,15 @@ console.log("this.movieList", this.movieList);
       complete: () => console.info('complete')
     });
   }
-  bkImage = ''
+
   filterResults(movie: any) {
     this.loading = true;
     this.isSearching = true;
     if (movie.target.value.length > 4) {
-
       this.getActorList(movie);
       this.getMovieList(movie);
-      console.log("this.ActorDetails.length", this.ActorDetails.length);
-      console.log("this.movieList.length", this.movieList.length);
-
       this.heading = `Results found for actors:   ${(this.ActorDetails.length > 0) ? this.ActorDetails.length : 'N/A'} and movies:   ${(this.movieList.length > 0) ? this.movieList.length : 'N/A'}`;
-
-
     }
-
   }
 
   getActorList(movie: any) {
