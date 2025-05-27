@@ -1,14 +1,17 @@
 <div class="header">
     <div class="container">
         <h4 class="text-center">Movie Discovery</h4>
-        <p class="text-center">Welcome to our movie discovery platform — your ultimate destination for exploring detailed information about movies and your favorite actors and actresses. Whether you're a casual viewer or a passionate cinephile, our website offers a rich and user-friendly experience to help you dive deep into the world of entertainment
+        <p class="text-center">Welcome to our movie discovery platform — your ultimate destination for exploring
+            detailed information about movies and your favorite actors and actresses. Whether you're a casual viewer or
+            a passionate cinephile, our website offers a rich and user-friendly experience to help you dive deep into
+            the world of entertainment
         </p>
     </div>
 </div>
 <div class="spinner-container">
     <mat-spinner *ngIf="loading"></mat-spinner>
 </div>
-    
+
 
 <div class="bg-light d-flex justify-content-between align-items-center p-2 mb-3">
     <div class="d-flex gap-2">
@@ -16,8 +19,30 @@
         <button class="btn btn-sm" (click)="getMovies(28 , 'Action Fix')">Action Fix</button>
         <button class="btn btn-sm" (click)="getMovies(878 , 'Mind Benders')">Mind Benders</button>
     </div>
-    <div>
-        <div class="input-group">
+    <div class="d-flex gap-2 align-items-center">
+        <div>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <div class="">
+                    <div class="p-2 d-flex gap-2 cursor-pointer align-items-center">
+                        <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg" alt="" class="whishlist-movie-img">
+                        <p class="mb-0" title="movie name">Movie name</p>
+                    </div>
+                    <div class="p-2 d-flex gap-2">
+                        <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg" alt="" class="whishlist-movie-img">
+                        <p>Movie name</p>
+                    </div>
+                    <div class="p-2 d-flex gap-2">
+                        <img src="https://media.themoviedb.org/t/p/w220_and_h330_face/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg" alt="" class="whishlist-movie-img">
+                        <p>Movie name</p>
+                    </div>
+                </div>
+            </mat-menu>
+
+        </div>
+        <div class="input-group wid-350">
             <span class="input-group-text bg-white px-2 " id="basic-addon1">
                 <span class="material-symbols-outlined">
                     search
@@ -30,7 +55,7 @@
 </div>
 
 <div class="container" *ngIf="!loading">
-    {{heading}}
+    <h2 class="section-header">{{heading}}</h2>
     <div class="actor-details" *ngIf="isSearching && ActorDetails.length > 0">
         <div class="row mx-0" *ngFor="let actor of ActorDetails">
             <div class="movie-img-section mb-2 col-4 px-0">
@@ -40,11 +65,10 @@
                         <div class="movie-img-section mb-2 col-4 px-0">
                             <span *ngIf="actor.profile_path !== null">
                                 <img src="https://media.themoviedb.org/t/p/w220_and_h330_face{{actor.profile_path}}"
-                                alt="Actor-img" class="movie-img">
+                                    alt="Actor-img" class="movie-img">
                             </span>
-                               <span *ngIf="actor.profile_path === null">
-                                  <img   src="assets/images/imagenotfound.jpg"
-                                alt="Actor-img" class="movie-img">
+                            <span *ngIf="actor.profile_path === null">
+                                <img src="assets/images/imagenotfound.jpg" alt="Actor-img" class="movie-img">
                             </span>
                         </div>
                         <div class="col-8">
@@ -68,36 +92,35 @@
                 <h5>popularity: {{actor.popularity | number:'1.2-2'}}</h5>
                 <h5>Movies :</h5>
                 <ul class="list-unstyled d-flex gap-3 p-0">
-                        <li></li> 
-                        <li class="d-flex gap-1" *ngFor="let item of actor.known_for; let last = last">
-                            <a [routerLink]="['/details', item.id]" >{{item.original_name || item.title || item.original_title}} </a><span *ngIf="!last" class="sepration-sym">| </span>
-                        </li> 
-                    </ul>
+                    <li></li>
+                    <li class="d-flex gap-1" *ngFor="let item of actor.known_for; let last = last">
+                        <a [routerLink]="['/details', item.id]">{{item.original_name || item.title ||
+                            item.original_title}} </a><span *ngIf="!last" class="sepration-sym">| </span>
+                    </li>
+                </ul>
             </div>
         </div>
-    <hr class="divider">
-            <!-- <h5>Movies</h5> -->
+        <hr class="divider">
+        <!-- <h5>Movies</h5> -->
     </div>
-    <div class="d-flex gap-4 flex-wrap " >
+    <div class="d-flex gap-4 flex-wrap ">
         <div class="movie-card" *ngFor="let item of movieList;let i = index;">
             <div class="movie-img-section mb-2">
                 <a [routerLink]="['/details', item.id]">
-                   
-
                     <span *ngIf="item.poster_path !== null">
-                                <img src="https://media.themoviedb.org/t/p/w220_and_h330_face{{item.poster_path}}"
-                                alt="Actor-img" class="movie-img">
-                            </span>
-                               <span *ngIf="item.poster_path === null">
-                                  <img   src="assets/images/imagenotfound.jpg"
-                                alt="Actor-img" class="movie-img">
-                            </span>
+                        <img src="https://media.themoviedb.org/t/p/w220_and_h330_face{{item.poster_path}}"
+                            alt="Actor-img" class="movie-img">
+                    </span>
+                    <span *ngIf="item.poster_path === null">
+                        <img src="assets/images/imagenotfound.jpg" alt="Actor-img" class="movie-img">
+                    </span>
                 </a>
                 <div class="rating-detail p-2 d-flex gap-3">
                     <p class="text-center mb-0 text-white"> {{item.vote_average | number:'1.2-2'}}/10</p>
-                   <button class="wishlist-color" mat-icon-button (click)="toggleWishlist(item.id)">
-      <mat-icon [ngStyle] = "{'color':item.isclicked? 'red' : 'white'}">{{ item.isclicked ? 'favorite' : 'favorite_border' }}</mat-icon>
-    </button>
+                    <button class="btn py-2 wishlist-btn" mat-icon-button (click)="toggleWishlist(item.id)">
+                        <mat-icon [ngStyle]="{'color':item.isclicked? 'red' : 'white'}">{{ item.isclicked ? 'favorite' :
+                            'favorite_border' }}</mat-icon>
+                    </button>
                 </div>
             </div>
             <h5>{{item.title}}</h5>

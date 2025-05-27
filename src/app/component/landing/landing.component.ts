@@ -6,6 +6,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ElementRef, Renderer2} from '@angular/core';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 
 export interface Movie {
   adult: boolean;
@@ -26,7 +28,7 @@ export interface Movie {
 
 @Component({
   selector: 'app-landing',
-  imports: [CommonModule, FormsModule, MatProgressSpinnerModule, RouterModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatProgressSpinnerModule, RouterModule, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 
