@@ -1,4 +1,8 @@
-<div class="position-relative mb-3">
+<div class="spinner-container">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+</div>
+
+<div class="position-relative mb-3"  *ngIf="!loading">
     <img src="https://media.themoviedb.org/t/p/w220_and_h330_face{{movieDetail.backdrop_path}}" alt="movie-img"
         class="movie-bg-img">
     <div class="poster-img-overlay">

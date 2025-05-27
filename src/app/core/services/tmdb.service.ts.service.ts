@@ -36,6 +36,21 @@ export class TmdbServiceTsService {
       );
   }
 
+  getActorDetails(actor: string): Observable<Config> {
+    return this.httpClient.get<Config>(`${environment.COMMON_URL}search/person?query=${actor}&include_adult=false&language=en-US&page=1`)
+      .pipe(
+        tap(data => data.results),
+        catchError(this.handleError)
+      );
+  }
+  getMoviesActorDetail(name: number): Observable<Config> {
+    
+    return this.httpClient.get<Config>(`${environment.COMMON_URL}search/movie?query=${name}&include_adult=false&language=en-US&page=1`)
+      .pipe(
+        tap(data => data.results),
+        catchError(this.handleError)
+      );
+  }
   private handleError(err: HttpErrorResponse): Observable<never> {
     // just a test ... more could would go here
     return throwError(() => err);

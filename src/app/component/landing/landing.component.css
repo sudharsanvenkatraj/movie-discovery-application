@@ -26,7 +26,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: #00000080;
+    background-color: #000000;
 }
 .spinner-container{
     position: fixed;
@@ -36,4 +36,15 @@
 }
 .wid-350{
     width: 350px;
+}
+.heading-sepration h5{
+    margin: 20px 0;
+}
+
+.sepration-sym{
+        margin-left: 1em;
+}
+.wishlist-color{
+    border-color: transparent;
+    background-color: transparent;
 }
