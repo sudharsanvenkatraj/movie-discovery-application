@@ -18,12 +18,10 @@ export class DetailComponent {
 ngOnInit() {
     this.route.params.subscribe(params => {
       const movieId = params['id'];
-      console.log("movieIdwwwww", movieId);
         this.getMoviesById(movieId);
-    
   })
 }
-
+;spokenLang: any 
 getMoviesById(genres_id: number) {
     this.tmdbServiceTsService.getSpecificMovieDetails(genres_id).subscribe({
       next: (res) => {

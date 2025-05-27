@@ -1,5 +1,5 @@
 .header{
-    background: violet;
+    background: #e8f2ff;
     padding: 1rem;
 }
 .movie-card{
@@ -33,4 +33,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+.wid-350{
+    width: 350px;
 }
