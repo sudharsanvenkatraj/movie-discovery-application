@@ -1,0 +1,30 @@
+.header{
+    background: violet;
+    padding: 1rem;
+}
+.movie-card{
+    width: 240px;
+}
+.movie-img-section{
+    width: 240px;
+    height: 340px;
+    overflow: hidden;
+    border-radius: 6px;
+    position: relative;
+    cursor: pointer;
+}
+.movie-img{
+    object-fit: cover;
+    width: 240px;
+    height: 340px;
+        transition: transform 0.5s ease;
+}
+.movie-img-section .movie-img:hover{
+ transform: scale(1.2);
+}
+.rating-detail{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #00000080;
+}

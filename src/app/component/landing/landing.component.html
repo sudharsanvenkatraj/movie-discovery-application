@@ -1,6 +1,71 @@
-<p>landing worksssss!</p>
-<p *ngFor="let user of feelGoodList.results">
+<div class="header">
+    <div class="container">
+        <h4 class="text-center">Movie Discovery</h4>
+        <p class="text-center">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+            unchanged.
+            It was popularised in the 1960s with the release of Letraset sheets containing Lorem
+        </p>
+    </div>
+</div>
 
-    {{ user.title }}<br>
+<div class="bg-light d-flex justify-content-between align-items-center p-2 mb-3">
+    <div class="d-flex gap-2">
+        <button class="btn btn-sm" (click)="getFeelGood()">Feel Good</button>
+        <button class="btn btn-sm" (click)="getActionFix()">Action Fix</button>
+        <button class="btn btn-sm" (click)="getMindBenders()">Mind Benders</button>
+    </div>
+    <div>
+        <div class="input-group">
+            <span class="input-group-text bg-white px-2 " id="basic-addon1">
+                <span class="material-symbols-outlined">
+                    search
+                </span>
+            </span>
+            <input type="text" class="form-control border-start-0 ps-0" placeholder="Search..."
+                aria-describedby="basic-addon1">
+        </div>
+    </div>
+</div>
 
-</p>
+<div class="container">
+    <div class="d-flex gap-4 flex-wrap" *ngIf="isFeelGood">
+        <div class="movie-card" *ngFor="let item of feelGoodList" >
+            <div class="movie-img-section mb-2">
+                <img src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-Ny40LzEwICAyMzUgVm90ZXM%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00433919-vmlukvdkjp-portrait.jpg" alt="movie-img" class="movie-img">
+                <div class="rating-detail p-2 d-flex gap-3">
+                    <p class="text-center mb-0 text-white"> {{item.vote_average}}/10</p>
+                    <p class="text-center mb-0 text-white"> {{item.vote_count}}Votes</p>
+                </div>
+            </div>
+            <h5>{{item.title}}</h5>
+        </div>
+    </div>
+
+    <div class="d-flex gap-4 flex-wrap" *ngIf="isActionFix">
+        <div class="movie-card" *ngFor="let item of actionList" >
+            <div class="movie-img-section mb-2">
+                <img src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-Ny40LzEwICAyMzUgVm90ZXM%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00433919-vmlukvdkjp-portrait.jpg" alt="movie-img" class="movie-img">
+                <div class="rating-detail p-2 d-flex gap-3">
+                    <p class="text-center mb-0 text-white"> {{item.vote_average}}/10</p>
+                    <p class="text-center mb-0 text-white"> {{item.vote_count}}Votes</p>
+                </div>
+            </div>
+            <h5>{{item.title}}</h5>
+        </div>
+    </div>
+
+    <div class="d-flex gap-4 flex-wrap" *ngIf="isMindBenders">
+        <div class="movie-card" *ngFor="let item of mindBendersList" >
+            <div class="movie-img-section mb-2">
+                <img src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:l-image,i-discovery-catalog@@icons@@star-icon-202203010609.png,lx-24,ly-615,w-29,l-end:l-text,ie-Ny40LzEwICAyMzUgVm90ZXM%3D,fs-29,co-FFFFFF,ly-612,lx-70,pa-8_0_0_0,l-end/et00433919-vmlukvdkjp-portrait.jpg" alt="movie-img" class="movie-img">
+                <div class="rating-detail p-2 d-flex gap-3">
+                    <p class="text-center mb-0 text-white"> {{item.vote_average}}/10</p>
+                    <p class="text-center mb-0 text-white"> {{item.vote_count}}Votes</p>
+                </div>
+            </div>
+            <h5>{{item.title}}</h5>
+        </div>
+    </div>
+</div>
