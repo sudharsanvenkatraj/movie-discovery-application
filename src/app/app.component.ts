@@ -7,6 +7,7 @@ import { FooterComponent } from "./component/footer/footer.component";
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, MatIconModule, HeaderComponent, FooterComponent],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 

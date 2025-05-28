@@ -12,30 +12,30 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class DetailComponent {
   movieDetail: any = {};
-    loading: boolean = false;
+  loading: boolean = false;
 
-  constructor(private tmdbServiceTsService: TmdbServiceTsService, private router: Router, private route: ActivatedRoute) { 
+  constructor(private tmdbServiceTsService: TmdbServiceTsService, private route: ActivatedRoute) {
 
-}
+  }
 
-ngOnInit() {
+  ngOnInit() {
     this.route.params.subscribe(params => {
       const movieId = params['id'];
       this.loading = true;
-        this.getMoviesById(movieId);
-  })
-}
-getMoviesById(genres_id: number) {
+      this.getMoviesById(movieId);
+    })
+  }
+  getMoviesById(genres_id: number) {
     this.tmdbServiceTsService.getSpecificMovieDetails(genres_id).subscribe({
       next: (res) => {
         setTimeout(() => {
           this.movieDetail = res;
-            this.loading = false;
+          this.loading = false;
         }, 1000)
       },
       error: (e) => {
         console.error(e);
-         this.loading = false;
+        this.loading = false;
       },
       complete: () => console.info('complete')
     });

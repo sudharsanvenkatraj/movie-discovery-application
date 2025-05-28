@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {  Component } from '@angular/core';
 import { TmdbServiceTsService } from '../../core/services/tmdb.service.ts.service';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { ElementRef, Renderer2 } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -20,12 +19,12 @@ export interface Movie {
   overview: string;
   popularity: number;
   poster_path: string | null;
-  release_date: string; // ISO date format (YYYY-MM-DD)
+  release_date: string; 
   title: string;
   video: boolean;
   vote_average: number;
   vote_count: number;
-  isclicked?: boolean; // Optional property to track if the movie is clicked
+  isclicked?: boolean; 
 }
 
 @Component({
@@ -51,7 +50,7 @@ export class LandingComponent {
   ActorDetails: any = [];
   isSearching: boolean = false;
   heading: string = "";
-  constructor(private tmdbServiceTsService: TmdbServiceTsService, private elRef: ElementRef, private renderer: Renderer2, private router: Router, private route: ActivatedRoute) {
+  constructor(private tmdbServiceTsService: TmdbServiceTsService) {
   }
   ngOnInit() {
     this.getTrendingMovies();
