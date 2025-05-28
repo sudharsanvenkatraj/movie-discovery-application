@@ -34,9 +34,9 @@
 
 <div class="container" *ngIf="!loading">
     <h2 class="section-header">{{heading}}</h2>
-    <div class="actor-details" *ngIf="isSearching && ActorDetails.length > 0">
+    <div class="actor-details" *ngIf="isSearching && actorDetailsList.length > 0">
         <h3>Actor:</h3>
-        <div class="row mx-0" *ngFor="let actor of ActorDetails">
+        <div class="row mx-0" *ngFor="let actor of actorDetailsList">
             <div class="movie-img-section mb-2 col-4 px-0">
                 <div class="actor-details">
 
@@ -82,7 +82,7 @@
         <hr class="divider">
         <h3>Movies:</h3>
     </div>
-    <div class="d-flex gap-4 flex-wrap ">
+    <div class="d-flex gap-4 flex-wrap item-aligmnent-row">
         <div class="movie-card" *ngFor="let item of movieList;let i = index;">
             <div class="movie-img-section mb-2">
                 <a [routerLink]="['/details', item.id]">

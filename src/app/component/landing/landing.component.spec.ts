@@ -105,7 +105,7 @@ beforeEach(async () => {
 
     expect(component.heading).toBe('');
     expect(component.movieList).toEqual([]);
-    expect(component.ActorDetails).toEqual([]);
+    expect(component.actorDetailsList).toEqual([]);
   });
 
 });

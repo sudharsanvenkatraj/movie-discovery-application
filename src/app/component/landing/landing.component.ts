@@ -47,11 +47,12 @@ export class LandingComponent {
 
   movieList: any = [];
   loading: boolean = false;
-  ActorDetails: any = [];
+  actorDetailsList: any = [];
   isSearching: boolean = false;
   heading: string = "";
-  constructor(private tmdbServiceTsService: TmdbServiceTsService) {
-  }
+  
+  constructor(private tmdbServiceTsService: TmdbServiceTsService) {}
+
   ngOnInit() {
     this.getTrendingMovies();
   }
@@ -135,14 +136,14 @@ export class LandingComponent {
     if (movie.target.value.length > 4) {
       this.getActorList(movie);
       this.getMovieList(movie);
-      this.heading = `Results found for actors:   ${(this.ActorDetails.length > 0) ? this.ActorDetails.length : 'N/A'} and movies:   ${(this.movieList.length > 0) ? this.movieList.length : 'N/A'}`;
     }
   }
 
   getActorList(movie: any) {
     this.tmdbServiceTsService.getActorDetails(movie.target.value.toLowerCase()).subscribe({
       next: (res) => {
-        this.ActorDetails = res.results.filter((item: any) => item.known_for_department === 'Acting');
+        this.actorDetailsList = res.results.filter((item: any) => item.known_for_department === 'Acting');
+        this.heading = `Results found for actors:   ${(this.actorDetailsList.length > 0) ? this.actorDetailsList.length : 'N/A'} and movies:   ${(this.movieList.length > 0) ? this.movieList.length : 'N/A'}`;
         this.loading = false;
       },
       error: (e) => console.error(e),
