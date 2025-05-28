@@ -1,26 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TmdbServiceTsService } from './core/services/tmdb.service.ts.service';
-import { filter } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from "./component/header/header.component";
+import { FooterComponent } from "./component/footer/footer.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MatIconModule, HeaderComponent, FooterComponent],
+  providers: [],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+
 })
 export class AppComponent {
-  title = 'movie_discovery';
-  constructor(private tmdbServiceTsService: TmdbServiceTsService ){
-    this.fuv()
-  }
-  // private apiService = inject(TmdbServiceTsService);
-
-
-  fuv(){
-    this.tmdbServiceTsService.getUser().pipe(
-      filter((item:any)=> item.results)
-    ).subscribe((iye)=> console.log("ssss", iye.results))
-  }
-
 }
