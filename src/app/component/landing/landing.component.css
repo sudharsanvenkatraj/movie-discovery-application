@@ -86,3 +86,10 @@
   top: 10px;
   right: 10px;
 }
+.form-control:focus {
+   color: #212529;
+    background-color: #fff;
+    border-color: #fff;
+    outline: 0;
+    box-shadow: transparent
+}

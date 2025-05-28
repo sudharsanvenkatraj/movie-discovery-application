@@ -1,18 +1,15 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./component/header/header.component";
 import { MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from "./component/header/header.component";
+import { FooterComponent } from "./component/footer/footer.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, MatIconModule],
+  imports: [RouterOutlet, MatIconModule, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-      // changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
 export class AppComponent {
-  title = 'movie_discovery';
- 
-
 }

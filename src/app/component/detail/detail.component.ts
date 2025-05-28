@@ -25,12 +25,10 @@ ngOnInit() {
         this.getMoviesById(movieId);
   })
 }
-spokenLang: any 
 getMoviesById(genres_id: number) {
     this.tmdbServiceTsService.getSpecificMovieDetails(genres_id).subscribe({
       next: (res) => {
         setTimeout(() => {
-          console.log("resss", res)
           this.movieDetail = res;
             this.loading = false;
         }, 1000)

@@ -46,44 +46,42 @@ export interface Movie {
 })
 export class LandingComponent {
 
-  dummynumber: number = 0;
   movieList: any = [];
   loading: boolean = false;
   ActorDetails: any = [];
   isSearching: boolean = false;
   heading: string = "";
-  inputValue: string | undefined;
-  isInWishlist = [];
   constructor(private tmdbServiceTsService: TmdbServiceTsService, private elRef: ElementRef, private renderer: Renderer2, private router: Router, private route: ActivatedRoute) {
-    // this.checkWishlist();
   }
+ngOnInit() {
+this.getTrendingMovies();
+}
+  getTrendingMovies() {
+    this.loading = true;
+    this.isSearching = false;
+    this.tmdbServiceTsService.getTrendingMovies().subscribe({
+      next: (res) => {
+        setTimeout(() => {
+          this.movieList = res.results.map((item: Movie) => {
+            item.isclicked = false
+            return item;
+          })
 
-  closeElement(event: MouseEvent) {
-    console.log("closeElement called");
-  }
-  checkWishlist() {
-    console.log("checkWishlist called");
-    const storedData = localStorage.getItem('addedWishlist');
-    let existingArray = storedData ? JSON.parse(storedData) : [];
-    // this.dummynumber =;
-    if( existingArray.length > 0) {
-      this.isInWishlist = existingArray.map((item: Movie) => {
-        console.log("imanjnu", item.poster_path);
-        
-        return {
-          id: item.id,
-          title: item.title,
-          // isclicked: item.isclicked || false // Ensure isclicked is defined
-          poster_path: item.poster_path || '', // Ensure poster_path is defined
-        };
-      })
-      console.log("isInWishlistisInWishlistisInWishlist",  this.isInWishlist);
-    } else{
-      localStorage.setItem('addedWishlist', JSON.stringify([]));
-    }
-    return  existingArray.length;
-  }
+          const storedData = localStorage.getItem('addedWishlist');
+          let existingArraylust = storedData ? JSON.parse(storedData) : [];
+          if (existingArraylust.length > 0) {
+            this.movieList.forEach((item: Movie) => {
+              item.isclicked = existingArraylust.some((movie: Movie) => movie.id === item.id);
+            });
+          }
 
+          this.loading = false;
+        }, 1000)
+      },
+      error: (e) => console.error(e),
+      complete: () => console.info('complete')
+    });
+  }
   toggleWishlist(id: number, item: Movie) {
     this.movieList = this.movieList.map((item: any) => {
       if (item.id === id) {
@@ -99,7 +97,6 @@ export class LandingComponent {
       existingArray = existingArray.filter((movie: Movie) => movie.id !== id);
     }
     localStorage.setItem('addedWishlist', JSON.stringify(existingArray));
-    // this.dummynumber = existingArray.length;
   }
 
 
@@ -112,7 +109,7 @@ export class LandingComponent {
       next: (res) => {
         setTimeout(() => {
 
-          this.movieList = res.results.map((item: any) => {
+          this.movieList = res.results.map((item: Movie) => {
             item.isclicked = false
             return item;
           })
@@ -120,13 +117,11 @@ export class LandingComponent {
           const storedData = localStorage.getItem('addedWishlist');
           let existingArraylust = storedData ? JSON.parse(storedData) : [];
           if (existingArraylust.length > 0) {
-            this.movieList.forEach((item: any) => {
+            this.movieList.forEach((item: Movie) => {
               item.isclicked = existingArraylust.some((movie: Movie) => movie.id === item.id);
             });
           }
 
-          // this.dummynumber = existingArraylust.length;
-          console.log("existingArraylust", existingArraylust);
           this.loading = false;
         }, 1000)
       },
@@ -149,7 +144,6 @@ export class LandingComponent {
     this.tmdbServiceTsService.getActorDetails(movie.target.value.toLowerCase()).subscribe({
       next: (res) => {
         this.ActorDetails = res.results.filter((item: any) => item.known_for_department === 'Acting');
-        console.log("ActorDetails", this.ActorDetails);
         this.loading = false;
       },
       error: (e) => console.error(e),
@@ -160,7 +154,6 @@ export class LandingComponent {
   getMovieList(movie: any) {
     this.tmdbServiceTsService.getMoviesActorDetail(movie.target.value.toLowerCase()).subscribe({
       next: (res) => {
-        console.log("movieee", res.results);
 
         this.movieList = res.results;
         this.loading = false;

@@ -19,6 +19,15 @@ export interface Config {
 export class TmdbServiceTsService {
 
   constructor(public httpClient: HttpClient) { }
+// https://api.themoviedb.org/3/trending/movie/day?language=en-US
+
+  getTrendingMovies(): Observable<Config> {
+    return this.httpClient.get<Config>(`${environment.COMMON_URL}trending/movie/day?language=en-US`)
+      .pipe(
+        tap(data => data.results),
+        catchError(this.handleError)
+      );
+  }
 
   getMovieDetails(genres_id: number, page: number = 1): Observable<Config> {
     return this.httpClient.get<Config>(`${environment.COMMON_URL}discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genres_id}`)
