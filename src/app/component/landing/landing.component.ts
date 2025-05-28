@@ -53,9 +53,9 @@ export class LandingComponent {
   heading: string = "";
   constructor(private tmdbServiceTsService: TmdbServiceTsService, private elRef: ElementRef, private renderer: Renderer2, private router: Router, private route: ActivatedRoute) {
   }
-ngOnInit() {
-this.getTrendingMovies();
-}
+  ngOnInit() {
+    this.getTrendingMovies();
+  }
   getTrendingMovies() {
     this.loading = true;
     this.isSearching = false;
@@ -66,7 +66,7 @@ this.getTrendingMovies();
             item.isclicked = false
             return item;
           })
-
+          this.heading = "Trending Movies";
           const storedData = localStorage.getItem('addedWishlist');
           let existingArraylust = storedData ? JSON.parse(storedData) : [];
           if (existingArraylust.length > 0) {

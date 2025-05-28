@@ -39,7 +39,7 @@
         <div class="row mx-0" *ngFor="let actor of ActorDetails">
             <div class="movie-img-section mb-2 col-4 px-0">
                 <div class="actor-details">
-                    
+
                     <div class="row mx-0">
                         <div class="movie-img-section mb-2 col-4 px-0">
                             <span *ngIf="actor.profile_path !== null">
@@ -94,15 +94,21 @@
                         <img src="assets/images/imagenotfound.jpg" alt="Actor-img" class="movie-img">
                     </span>
                 </a>
-                <div class="rating-detail p-2 d-flex gap-3">
-                    <p class="text-center mb-0 text-white"> {{item.vote_average | number:'1.2-2'}}/10</p>
-                    <button class="btn py-2 wishlist-btn" mat-icon-button (click)="toggleWishlist(item.id, item)">
-                        <mat-icon [ngStyle]="{'color':item.isclicked? 'red' : 'white'}">{{ item.isclicked ? 'favorite' :
-                            'favorite_border' }}</mat-icon>
-                    </button>
+                <div class="rating-detail">
+
+                    <p class="text-white text-center"> {{item.title}}</p>
+                    <span class="d-flex gap-4">
+                        <p class="text-center text-white"> {{item.vote_average | number:'1.2-2'}}/10</p>
+                        <p class="text-white  rel-date-alignment"> {{item.release_date | date}}</p>
+                    </span>
                 </div>
+
+                <button class="btn py-2 wishlist-btn" mat-icon-button (click)="toggleWishlist(item.id, item)">
+                    <mat-icon [ngStyle]="{'color':item.isclicked? 'red' : 'white'}">{{ item.isclicked ? 'favorite' :
+                        'favorite_border' }}</mat-icon>
+                </button>
             </div>
-            <h5>{{item.title}}</h5>
+
         </div>
     </div>
 </div>

@@ -48,7 +48,7 @@
     position: absolute;
     right: 0;
     top: 0px;
-    background: #00000042;
+    background: transparent;
     display: flex;
 }
  a .whishlist-movie-img{
@@ -92,4 +92,7 @@
     border-color: #fff;
     outline: 0;
     box-shadow: transparent
+}
+.rel-date-alignment{
+    margin-left: 3em;
 }
